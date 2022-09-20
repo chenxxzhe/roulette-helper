@@ -31,12 +31,21 @@ module.exports = {
   // add your custom rules here
   rules: {
     'prettier/prettier': 'error',
+    'import/extensions': ['error', { ts: 'never' }],
+    'import/no-unresolved': ['error', { ignore: ['virtual'] }],
+    'import/prefer-default-export': 'off',
   },
   settings: {
-    // 'import/resolver': {
-    //   webpack: {
-    //     config: 'node_modules/@vue/cli-service/webpack.config.js',
-    //   },
-    // },
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    'import/resolver': {
+      typescript: {
+        // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+        // alwaysTryTypes: true,
+        // Choose from one of the "project" configs below or omit to use <root>/tsconfig.json by default
+        // project: './tsconfig.json',
+      },
+    },
   },
 }
