@@ -16,7 +16,7 @@ export const useBulletStore = defineStore('bullet', {
     /** 实心子弹 */
     real: 1,
     /** 子弹顺序 */
-    seq: [] as boolean[],
+    seq: shuffle([true].concat(new Array(5).fill(false))) as boolean[],
     /** 当前开第几枪 */
     fireIndex: 0,
   }),
