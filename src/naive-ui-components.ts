@@ -6,5 +6,6 @@ export {
   NModal,
   NDrawer,
   NSwitch,
+  NInputNumber,
   create,
 } from 'naive-ui'

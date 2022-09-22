@@ -6,8 +6,11 @@ const visible = ref(false)
 </script>
 
 <template>
-  <!-- 缩略图, 点击打开弹窗 -->
-  <div class="flex justify-center border-light-50" @click="visible = true">
+  <div
+    class="flex justify-center border-light-50"
+    v-bind="$attrs"
+    @click="visible = true"
+  >
     <span>{{ count }}</span>
   </div>
 

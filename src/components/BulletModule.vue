@@ -6,6 +6,7 @@ const store = useBulletStore()
 
 const visible = ref(false)
 
+/** 切换字典开关样式 */
 const railStyle = ({ checked }: { checked: boolean }) => {
   const style: CSSProperties = {}
   style.background = checked ? '#2080f0' : 'rgba(0, 0, 0, 0.14)'
@@ -14,8 +15,11 @@ const railStyle = ({ checked }: { checked: boolean }) => {
 </script>
 
 <template>
-  <!-- 缩略图, 点击打开弹窗 -->
-  <div class="flex flex-col border-light-50" @click="visible = true">
+  <div
+    class="flex flex-col border-light-50"
+    v-bind="$attrs"
+    @click="visible = true"
+  >
     <div v-for="r in store.real" :key="r" class="bg-red-500 w-20 h-20"></div>
     <div
       v-for="f in store.total - store.real"
@@ -33,13 +37,13 @@ const railStyle = ({ checked }: { checked: boolean }) => {
           v-for="r in store.real"
           :key="r"
           class="bg-red-500 w-20 h-20"
-          @click="store.real--"
+          @click="store.real -= store.real - r"
         ></div>
         <div
           v-for="f in store.total - store.real"
           :key="f"
           class="bg-gray-500 w-20 h-20"
-          @click="store.real++"
+          @click="store.real += f + 1"
         ></div>
 
         <div>

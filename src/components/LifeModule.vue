@@ -9,7 +9,11 @@ const visible = ref(false)
 
 <template>
   <!-- 缩略图, 点击打开弹窗 -->
-  <div class="flex justify-center border-light-50" @click="visible = true">
+  <div
+    class="flex justify-center border-light-50"
+    v-bind="$attrs"
+    @click="visible = true"
+  >
     <div v-for="life in count" :key="life" class="bg-green-500 w-20 h-20"></div>
     <div
       v-for="dead in total - count"
@@ -25,13 +29,13 @@ const visible = ref(false)
           v-for="life in count"
           :key="life"
           class="bg-green-500 w-40 h-40"
-          @click="count--"
+          @click="count -= count - life"
         ></div>
         <div
           v-for="dead in total - count"
           :key="dead"
           class="bg-green-500 w-40 h-40"
-          @click="count++"
+          @click="count += dead + 1"
         ></div>
       </div>
       <template #footer> 点击人像加减生命 </template>
