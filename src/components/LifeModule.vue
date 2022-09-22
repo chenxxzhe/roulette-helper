@@ -1,44 +1,54 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const total = ref(4)
+import PersonIcon from '@/assets/person.svg'
+
+const total = 4
 const count = ref(total)
 
 const visible = ref(false)
 </script>
 
 <template>
-  <!-- 缩略图, 点击打开弹窗 -->
   <div
-    class="flex justify-center border-light-50"
+    class="flex justify-center p-6px"
     v-bind="$attrs"
     @click="visible = true"
   >
-    <div v-for="life in count" :key="life" class="bg-green-500 w-20 h-20"></div>
-    <div
-      v-for="dead in total - count"
-      :key="dead"
-      class="bg-green-500 w-20 h-20"
-    ></div>
+    剩余生命:
+    <n-icon v-for="life in count" :key="life" color="green" size="40">
+      <PersonIcon />
+    </n-icon>
+    <n-icon v-for="dead in total - count" :key="dead" color="gray" size="40">
+      <PersonIcon />
+    </n-icon>
   </div>
 
   <n-modal v-model:show="visible">
-    <n-card title="剩余生命">
-      <div class="flex justify-center">
-        <div
+    <n-card title="剩余生命" class="w-1/2">
+      <div class="flex justify-start">
+        <n-icon
           v-for="life in count"
           :key="life"
-          class="bg-green-500 w-40 h-40"
+          color="green"
+          size="60"
           @click="count -= count - life"
-        ></div>
-        <div
+        >
+          <PersonIcon />
+        </n-icon>
+        <n-icon
           v-for="dead in total - count"
           :key="dead"
-          class="bg-green-500 w-40 h-40"
-          @click="count += dead + 1"
-        ></div>
+          color="gray"
+          size="60"
+          @click="count += dead"
+        >
+          <PersonIcon />
+        </n-icon>
       </div>
-      <template #footer> 点击人像加减生命 </template>
+      <template #footer>
+        <p>点击人像加减生命</p>
+      </template>
     </n-card>
   </n-modal>
 </template>

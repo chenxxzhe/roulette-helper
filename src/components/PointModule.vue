@@ -6,18 +6,18 @@ const visible = ref(false)
 </script>
 
 <template>
-  <!-- 缩略图, 点击打开弹窗 -->
   <div
-    class="flex justify-center border-light-50"
+    class="flex justify-center p-6px"
     v-bind="$attrs"
     @click="visible = true"
   >
-    <span>{{ count }}</span>
+    分数:
+    <span class="text-size-10rem text-pink-600">{{ count }}</span>
   </div>
 
   <n-modal v-model:show="visible">
-    <n-card title="分数">
-      <n-input-number v-model:value="count" :min="0" clearable />
+    <n-card title="分数" class="w-60">
+      <n-input-number v-model:value="count" :min="0" />
       <template #footer> 15 分获胜 </template>
     </n-card>
   </n-modal>
