@@ -7,5 +7,6 @@ export {
   NDrawer,
   NSwitch,
   NInputNumber,
+  NCarousel,
   create,
 } from 'naive-ui'

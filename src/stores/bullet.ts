@@ -1,11 +1,6 @@
 // 统计当前子弹状况
 import { defineStore } from 'pinia'
-
-const shuffle = <T>(arr: T[]) =>
-  arr
-    .map((value) => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value)
+import { shuffle } from '@/utils'
 
 export const useBulletStore = defineStore('bullet', {
   state: () => ({

@@ -6,14 +6,16 @@ import BulletModule from './components/BulletModule.vue'
 import GunModule from './components/GunModule.vue'
 import BetModule from './components/BetModule.vue'
 import PointModule from './components/PointModule.vue'
+import CardModule from './components/CardModule.vue'
 </script>
 
 <template>
   <LifeModule class="absolute border left-0 top-0"></LifeModule>
   <PointModule class="absolute border right-0 top-0"></PointModule>
-  <BulletModule class="absolute border left-0 top-1/5"></BulletModule>
+  <BulletModule class="absolute border left-0 top-1/5 z-50"></BulletModule>
   <GunModule class="absolute right-0 top-40"></GunModule>
   <BetModule class="absolute border right-0 bottom-0"></BetModule>
+  <CardModule class="absolute border left-0 bottom-0"></CardModule>
 </template>
 
 <style scoped></style>
