@@ -10,18 +10,16 @@ const visible = ref(false)
 </script>
 
 <template>
-  <div
-    class="flex justify-center p-6px"
-    v-bind="$attrs"
-    @click="visible = true"
-  >
-    剩余生命:
-    <n-icon v-for="life in count" :key="life" color="green" size="40">
-      <PersonIcon />
-    </n-icon>
-    <n-icon v-for="dead in total - count" :key="dead" color="gray" size="40">
-      <PersonIcon />
-    </n-icon>
+  <div class="p-6px" v-bind="$attrs" @click="visible = true">
+    <p>剩余生命:</p>
+    <div class="flex justify-center">
+      <n-icon v-for="life in count" :key="life" color="green" size="40">
+        <PersonIcon />
+      </n-icon>
+      <n-icon v-for="dead in total - count" :key="dead" color="gray" size="40">
+        <PersonIcon />
+      </n-icon>
+    </div>
   </div>
 
   <n-modal v-model:show="visible">

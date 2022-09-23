@@ -6,13 +6,9 @@ const visible = ref(false)
 </script>
 
 <template>
-  <div
-    class="flex justify-center p-6px"
-    v-bind="$attrs"
-    @click="visible = true"
-  >
-    下注额:
-    <span class="text-size-8rem">{{ count }}</span>
+  <div class="p-6px" v-bind="$attrs" @click="visible = true">
+    <p>下注额:</p>
+    <p class="text-size-8rem">{{ count }}</p>
   </div>
 
   <n-modal v-model:show="visible">
