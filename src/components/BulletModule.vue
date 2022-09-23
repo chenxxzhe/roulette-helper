@@ -37,7 +37,7 @@ const railStyle = ({ checked }: { checked: boolean }) => {
   </div>
 
   <n-modal v-model:show="visible">
-    <n-card title="子弹数量" class="w-1/2">
+    <n-card title="子弹数量" class="w-270px">
       <div class="mb-6px">
         <n-icon
           v-for="r in store.real"

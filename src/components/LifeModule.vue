@@ -23,7 +23,7 @@ const visible = ref(false)
   </div>
 
   <n-modal v-model:show="visible">
-    <n-card title="剩余生命" class="w-1/2">
+    <n-card title="剩余生命" class="w-300px">
       <div class="flex justify-start">
         <n-icon
           v-for="life in count"
