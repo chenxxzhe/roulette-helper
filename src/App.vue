@@ -12,9 +12,7 @@ import PointModule from './components/PointModule.vue'
   <LifeModule class="absolute border left-0 top-0"></LifeModule>
   <PointModule class="absolute border right-0 top-0"></PointModule>
   <BulletModule class="absolute border left-0 top-1/5"></BulletModule>
-  <GunModule
-    class="absolute border left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
-  ></GunModule>
+  <GunModule class="absolute right-0 top-40"></GunModule>
   <BetModule class="absolute border right-0 bottom-0"></BetModule>
 </template>
 

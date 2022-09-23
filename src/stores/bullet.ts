@@ -39,7 +39,7 @@ export const useBulletStore = defineStore('bullet', {
     },
     /** 开枪 */
     fire() {
-      if (this.fireIndex >= 5) return
+      if (this.fireIndex >= this.total) return
       this.fireIndex += 1
     },
     /** 重新装弹, 不移除新增的实心弹 */

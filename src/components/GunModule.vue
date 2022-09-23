@@ -1,38 +1,14 @@
 <script setup lang="ts">
-import { useBulletStore } from '@/stores/bullet'
+import { ref, ComponentPublicInstance, watch } from 'vue'
 import GunImg from '@/assets/gun.svg'
-import fireSound from '@/assets/fire.mp3'
-import emptyFireSound from '@/assets/empty-fire.mp3'
-import reloadSound from '@/assets/reload-bullet.mp3'
-import { Howl } from 'howler'
+import { useBulletStore } from '@/stores/bullet'
+import { useAudio } from '@/stores/audio'
+import { useThrottleFn } from '@vueuse/core'
 
 // TODO: 动画, 转轮
 
-const store = useBulletStore()
-
-const useAudio = () => {
-  const soundMap = {
-    fire: fireSound,
-    empty: emptyFireSound,
-    reload: reloadSound,
-  }
-  const contextMap = Object.fromEntries(
-    Object.entries(soundMap).map(([key, url]) => [
-      key,
-      new Howl({ src: [url] }),
-    ]),
-  )
-  return {
-    stop() {
-      Object.values(contextMap).forEach((au) => au.stop())
-    },
-    play(key: keyof typeof soundMap) {
-      contextMap[key].play()
-    },
-  }
-}
-
 const audio = useAudio()
+const store = useBulletStore()
 
 const fire = () => {
   audio.stop()
@@ -49,27 +25,46 @@ const resetGun = () => {
   audio.play('reload')
   store.resetGun()
 }
+
+const gunEl = ref<ComponentPublicInstance | null>(null)
+const stopWatch = watch(gunEl, (v) => {
+  if (!v) return
+  const svg = v.$el
+  const triggerEl = svg.querySelector('.trigger') as SVGPathElement
+  const triggerHotzone = svg.querySelector('.trigger-hotzone') as SVGPathElement
+  triggerEl.onanimationend = () => {
+    triggerEl.classList.remove('trigger-animation')
+  }
+  triggerHotzone.onclick = useThrottleFn(() => {
+    if (store.fireIndex >= 6) return
+    triggerEl.classList.add('trigger-animation')
+    fire()
+  }, 800)
+  stopWatch()
+})
 </script>
 
 <template>
+  <div class="fixed top-1/2 left-0 transform -translate-y-1/2 -rotate-90">
+    <n-icon size="60vh">
+      <GunImg ref="gunEl" />
+    </n-icon>
+  </div>
   <div v-bind="$attrs">
-    <div>
-      <n-icon size="200">
-        <GunImg />
-      </n-icon>
-    </div>
     <div class="flex justify-center">
-      <n-button :disabled="store.fireIndex >= 5" @click="fire">开枪</n-button>
       <n-button @click="resetGun">重新装弹</n-button>
     </div>
-    <div>
-      <p>
-        准备开第
-        <span class="text-green-800">{{ store.fireIndex + 1 }}</span>
-        枪
+    <div class="text-size-1rem w-7rem">
+      <p class="text-center">
+        <span v-if="store.fireIndex < 6">
+          准备开第
+          <span class="text-green-800">{{ store.fireIndex + 1 }}</span>
+          枪
+        </span>
+        <span v-else>弹夹已清空</span>
       </p>
-      <p v-for="i in store.fireIndex" :key="i">
-        第{{ i }}枪:
+      <p v-for="i in store.fireIndex" :key="i" class="flex justify-around">
+        <span> 第{{ i }}枪: </span>
         <span :class="[store.seq[i - 1] ? 'text-red-500' : '']">{{
           store.seq[i - 1] ? '实心' : '空枪'
         }}</span>
@@ -78,4 +73,16 @@ const resetGun = () => {
   </div>
 </template>
 
-<style scoped></style>
+<style>
+.trigger.trigger-animation {
+  transform-origin: 44% 47%;
+  animation: trigger 0.3s ease-in;
+  animation-iteration-count: 2;
+  animation-direction: alternate;
+}
+@keyframes trigger {
+  to {
+    transform: rotate(45deg);
+  }
+}
+</style>
