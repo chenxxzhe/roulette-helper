@@ -1,8 +1,11 @@
-body {
+html, body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
-  font-size: 20px;
+  height: 100vh;
   overflow: hidden;
+}
+
+body {
+  font-size: 20px;
 }
 

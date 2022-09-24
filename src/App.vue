@@ -17,5 +17,3 @@ import CardModule from './components/CardModule.vue'
   <BetModule class="absolute border right-0 bottom-0"></BetModule>
   <CardModule class="absolute border left-0 bottom-0"></CardModule>
 </template>
-
-<style scoped></style>
