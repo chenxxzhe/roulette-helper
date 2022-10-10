@@ -1,19 +1,22 @@
 // 统计当前子弹状况
 import { defineStore } from 'pinia'
 import { shuffle } from '@/utils'
+import { useLocalStorage } from '@vueuse/core'
+
+const seq = shuffle([true].concat(new Array(5).fill(false))) as boolean[]
 
 export const useBulletStore = defineStore('bullet', {
   state: () => ({
     /** 子弹总数 */
     total: 6,
     /** 是否隐藏实心子弹 */
-    hide: false,
+    hide: useLocalStorage('bullet/hide', false),
     /** 实心子弹 */
-    real: 1,
+    real: useLocalStorage('bullet/real', 1),
     /** 子弹顺序 */
-    seq: shuffle([true].concat(new Array(5).fill(false))) as boolean[],
+    seq: useLocalStorage('bullet/seq', seq),
     /** 当前开第几枪 */
-    fireIndex: 0,
+    fireIndex: useLocalStorage('bullet/index', 0),
   }),
   actions: {
     /** 重新排序 */

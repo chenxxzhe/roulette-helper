@@ -69,7 +69,9 @@ const railStyle = ({ checked }: { checked: boolean }) => {
           <template #unchecked> 空子弹 </template>
         </n-switch>
       </div>
-      <template #footer> 点击子弹切换是否实心 </template>
+      <template #footer>
+        只要修改 实心子弹 或切换 隐藏子弹 ，就会自动重新装弹。
+      </template>
     </n-card>
   </n-modal>
 </template>

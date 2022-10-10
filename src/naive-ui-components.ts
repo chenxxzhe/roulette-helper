@@ -6,5 +6,6 @@ export {
   NDrawer,
   NSwitch,
   NCarousel,
+  NPopconfirm,
   create,
 } from 'naive-ui'

@@ -1,5 +1,6 @@
 import { shuffle } from '@/utils'
 import { defineStore } from 'pinia'
+import { useLocalStorage } from '@vueuse/core'
 
 type Phase = '藏子弹' | '转轮' | '挑战' | '开枪' | '得分'
 
@@ -117,11 +118,11 @@ export const useCardStore = defineStore('cards', {
   state: () => ({
     /** 所有牌的类型数量 */
     /** 剩余牌库 */
-    deck: shuffle(deck),
+    deck: useLocalStorage('cards/deck', shuffle(deck)),
     /** 手牌 */
-    hand: [] as CardWithId[],
+    hand: useLocalStorage('cards/hand', [] as CardWithId[]),
     /** 弃牌堆 */
-    discardPile: [] as CardWithId[],
+    discardPile: useLocalStorage('cards/discard', [] as CardWithId[]),
   }),
   actions: {
     draw() {

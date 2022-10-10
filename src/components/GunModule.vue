@@ -55,7 +55,8 @@ const stopWatch = watch(gunEl, (v) => {
       <n-button @click="resetGun">重新装弹</n-button>
     </div>
     <div class="text-size-1rem w-7rem">
-      <p class="text-center">
+      <p class="text-center mt-1">点击扳机开枪</p>
+      <p class="text-center mt-1">
         <span v-if="store.fireIndex < 6">
           准备开第
           <span class="text-green-800">{{ store.fireIndex + 1 }}</span>

@@ -2,17 +2,18 @@
 import { ref } from 'vue'
 import AddIcon from '@/assets/add.svg'
 import MinusIcon from '@/assets/minus.svg'
+import { useGlobalStore } from '@/stores/global'
 
-const count = ref(0)
+const store = useGlobalStore()
 const visible = ref(false)
 const add = () => {
-  if (count.value < 5) {
-    count.value += 1
+  if (store.bet < 5) {
+    store.bet += 1
   }
 }
 const minus = () => {
-  if (count.value > 0) {
-    count.value -= 1
+  if (store.bet > 0) {
+    store.bet -= 1
   }
 }
 </script>
@@ -20,13 +21,13 @@ const minus = () => {
 <template>
   <div class="p-6px w-8rem" v-bind="$attrs" @click="visible = true">
     <p>下注额:</p>
-    <p class="text-size-7rem text-center">{{ count }}</p>
+    <p class="text-size-7rem text-center">{{ store.bet }}</p>
   </div>
 
   <n-modal v-model:show="visible">
     <n-card title="下注额" class="w-50">
       <div class="flex">
-        <div class="w-12rem h-6rem text-size-6rem">{{ count }}</div>
+        <div class="w-12rem h-6rem text-size-6rem">{{ store.bet }}</div>
         <div>
           <p>
             <n-button circle @click="add">
